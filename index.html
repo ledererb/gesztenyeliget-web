@@ -316,26 +316,31 @@ p { margin: 0; }
    background: var(--fg);
    color: var(--bg);
    overflow: hidden;
+   padding-block: clamp(64px, 8vw, 100px);
  }
  .hscroll-head {
-   position: absolute; top: clamp(28px, 5vh, 56px); left: 0; right: 0; z-index: 5;
-   pointer-events: none;
+   margin-bottom: clamp(32px, 5vh, 56px);
  }
  .hscroll-head .eyebrow { color: color-mix(in oklab, var(--accent), white 18%); }
  .hscroll-head h2 { color: var(--bg); font-size: clamp(1.6rem, 2.6vw, 2.4rem); }
  .hscroll-stage {
-   height: 100vh;
    display: flex;
-   align-items: flex-end;
-   overflow: hidden;
+   overflow-x: auto;
+   overflow-y: hidden;
+   overscroll-behavior-x: contain;
+   -webkit-overflow-scrolling: touch;
+   cursor: grab;
+   user-select: none;
+   scrollbar-width: none; /* Firefox */
  }
+ .hscroll-stage::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+ .hscroll-stage:active { cursor: grabbing; }
  .hscroll-track {
    display: flex;
    align-items: stretch;
    gap: clamp(24px, 4vw, 64px);
-   padding-inline: clamp(24px, 7vw, 110px);
-   padding-bottom: clamp(36px, 9vh, 96px);
-   will-change: transform;
+   padding-inline: clamp(20px, 4vw, 36px);
+   padding-bottom: 24px;
  }
  .hpanel { flex: none; width: min(72vw, 840px); }
  .hpanel-intro {
@@ -382,7 +387,7 @@ p { margin: 0; }
     transform-origin: left center;
     transform: scaleX(0);
   }
-  .hscroll-exit {
+  /* .hscroll-exit removed */ .hscroll-exit-removed {
     position: absolute; top: clamp(28px, 5vh, 56px); right: clamp(20px, 4vw, 36px);
     z-index: 8; display: inline-flex; align-items: center; gap: 8px;
     font: 600 13.5px/1 var(--font-body);
@@ -410,7 +415,7 @@ p { margin: 0; }
   }
   .hscroll-section.exited .hscroll-track { padding-bottom: 8px; }
   .hscroll-section.exited .hscroll-progress { display: none; }
-  .hscroll-section.exited .hscroll-exit { display: none; }
+  .hscroll-section.exited /* .hscroll-exit removed */ .hscroll-exit-removed { display: none; }
 
  /* ============================================================
     Image Clip Reveal
@@ -434,7 +439,7 @@ p { margin: 0; }
    .hpanel-figure img { height: 300px; }
    .hscroll-progress { display: none; }
    .hscroll-head { position: static; padding: 64px 24px 0; }
-   .hscroll-exit { display: none; }
+   /* .hscroll-exit removed */ .hscroll-exit-removed { display: none; }
  }
 
 /* ============================================================
@@ -1121,21 +1126,17 @@ p { margin: 0; }
 
 </div> <!-- /skew-wrapper (pin előtt megszakítva) -->
 
-  <!-- 5B. HORIZONTÁLIS SCROLL PIN GALÉRIA — LIGET ÉS KÖZÖSSÉG -->
+  <!-- 5B. VÍZSZINTESEN LAPOZHATÓ GALÉRIA — LIGET ÉS KÖZÖSSÉG -->
   <section class="hscroll-section" id="liget" data-od-id="liget-galeria">
     <div class="hscroll-head container">
       <p class="eyebrow">A liget és a közösség</p>
       <h2 class="h2" data-mask-reveal="">Hat pillanat a Gesztenyeligetből</h2>
     </div>
-    <button type="button" class="hscroll-exit" id="gallery-exit" data-od-id="gallery-exit" aria-label="Galéria bezárása — szabad görgetés folytatása">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
-      Galéria bezárása
-    </button>
     <div class="hscroll-stage">
       <div class="hscroll-track">
         <div class="hpanel hpanel-intro">
           <div class="hcount">06</div>
-          <p>Görgessen tovább — a bemutató vízszintesen lapozható. A zárt ősfás liget, a klubhelyiség és a három apartmantípus egyetlen ívben. A jobb felső „Galéria bezárása” gombbal bármikor kiléphet, és az oldal szabadon görgethető tovább.</p>
+          <p>A zárt ősfás liget, a közösségi klubhelyiség és az apartmantípusok életképei. Lapozzon oldalra a részletekért.</p>
         </div>
         <figure class="hpanel">
           <div class="hpanel-figure"><img src="assets/facade-park.jpg" alt="Zárt ősfás liget parkja" loading="lazy"></div>
@@ -1808,76 +1809,49 @@ p { margin: 0; }
       .from('.hero-stats li', { y: 20, opacity: 0, duration: 0.6, stagger: 0.07 }, 0.95);
   }
 
-  // 5. HORIZONTÁLIS SCROLL PIN GALÉRIA — egy kattintással kikapcsolható
-  const gallerySection = document.querySelector('.hscroll-section');
-  let galleryExit = null;
-  let galleryST = null;
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 961px)', () => {
-    if (!gallerySection || gallerySection.classList.contains('exited')) return;
-    const track = gallerySection.querySelector('.hscroll-track');
-    const fill = gallerySection.querySelector('.hscroll-progress-fill');
-    if (!track) return;
+  // 5. HORIZONTÁLIS LAPOZHATÓ GALÉRIA (NINCS PIN, NINCS AUTOMATIKUS OLDALRA TÉRÍTÉS)
+  // Csak akkor lapozódik oldalra, ha az egérrel kifejezetten húzza (drag-to-scroll) vagy érintéssel/touchpaddal görgeti vízszintesen.
+  const galleryStage = document.querySelector('.hscroll-stage');
+  const galleryProgressFill = document.querySelector('.hscroll-progress-fill');
+  if (galleryStage) {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
 
-    const getAmount = () => Math.max(0, track.scrollWidth - window.innerWidth);
+    galleryStage.addEventListener('mousedown', (e) => {
+      isDown = true;
+      galleryStage.classList.add('active');
+      startX = e.pageX - galleryStage.offsetLeft;
+      scrollLeft = galleryStage.scrollLeft;
+    });
 
-    const horiz = gsap.to(track, {
-      x: () => -getAmount(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: gallerySection,
-        start: 'top top',
-        end: () => '+=' + getAmount(),
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          if (fill) fill.style.transform = 'scaleX(' + self.progress + ')';
+    const stopDrag = () => {
+      isDown = false;
+      galleryStage.classList.remove('active');
+    };
+
+    window.addEventListener('mouseup', stopDrag);
+    galleryStage.addEventListener('mouseleave', stopDrag);
+
+    galleryStage.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - galleryStage.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      galleryStage.scrollLeft = scrollLeft - walk;
+    });
+
+    // Haladási csík frissítése manuális görgetéskor
+    galleryStage.addEventListener('scroll', () => {
+      if (galleryProgressFill) {
+        const maxScroll = galleryStage.scrollWidth - galleryStage.clientWidth;
+        if (maxScroll > 0) {
+          const progress = galleryStage.scrollLeft / maxScroll;
+          galleryProgressFill.style.transform = 'scaleX(' + progress + ')';
         }
       }
-    });
-    galleryST = horiz.scrollTrigger;
-
-    // Kilépés: pin visszavonása, a galéria lapozható marad, az oldal szabadon görgethető
-    galleryExit = () => {
-      if (galleryST) galleryST.kill(true);
-      horiz.kill();
-      gallerySection.classList.add('exited');
-      galleryST = null;
-      galleryExit = null;
-      ScrollTrigger.refresh();
-      const next = document.getElementById('csomagok');
-      if (next) lenis.scrollTo(next, { offset: -70, duration: 1.2 });
-    };
-
-    // Képek belső parallaxa a horizontális mozgáshoz kötve
-    const parallax = gsap.utils.toArray('.hpanel-figure img').map((img) =>
-      gsap.fromTo(img, { xPercent: -5 }, {
-        xPercent: 5,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: img.closest('.hpanel'),
-          containerAnimation: horiz,
-          start: 'left right',
-          end: 'right left',
-          scrub: true
-        }
-      })
-    );
-
-    return () => {
-      parallax.forEach((t) => { if (t.scrollTrigger) t.scrollTrigger.kill(true); t.kill(); });
-    };
-  });
-
-  const galleryExitBtn = document.getElementById('gallery-exit');
-  if (galleryExitBtn) {
-    galleryExitBtn.addEventListener('click', () => { if (galleryExit) galleryExit(); });
+    }, { passive: true });
   }
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && galleryExit && galleryST && galleryST.isActive) galleryExit();
-  });
 
   
 
