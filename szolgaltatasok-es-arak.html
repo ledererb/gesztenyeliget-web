@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szolgáltatások és Díjak · Gesztenyeliget Apartman- és Lakócentrum</title>
+  <meta name="description" content="A Gesztenyeliget szolgáltatott lakhatási (assisted living) modellje, apartman bérleti díjak, életviteli szintek és gyógyszerészi felügyelet 2026-ban.">
+
+  <!-- Google Fonts: Warm Editorial (Playfair Display + Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #FAF7F2;
+      --fg: #1C1A17;
+      --fg-muted: #5C5852;
+      --fg-subtle: #8A857D;
+      --card-bg: #FFFFFF;
+      --border: rgba(28, 26, 23, 0.09);
+      --border-strong: rgba(28, 26, 23, 0.18);
+      --terracotta: #C0512F;
+      --terracotta-soft: rgba(192, 81, 47, 0.08);
+      --green: #2F5B4F;
+      --green-dark: #1E3D35;
+      --green-soft: rgba(47, 91, 79, 0.08);
+      --sand: #F0EAE1;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 247, 242, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      text-decoration: none;
+      color: var(--fg);
+    }
+    .brand-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--fg-muted);
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-link {
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .nav-link:hover { color: var(--terracotta); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: #FFF;
+    }
+    .btn-primary:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero-section {
+      padding: 70px 0 50px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: var(--terracotta);
+      margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 5vw, 50px);
+      line-height: 1.15;
+      font-weight: 600;
+      max-width: 840px;
+      margin-bottom: 22px;
+    }
+    .hero-lead {
+      font-size: 17.5px;
+      line-height: 1.65;
+      color: var(--fg-muted);
+      max-width: 780px;
+    }
+
+    /* STRUCTURE BANNER */
+    .structure-banner {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 32px;
+      margin: 44px 0 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
+    .structure-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .structure-desc {
+      font-size: 15px;
+      color: var(--fg-muted);
+      margin-bottom: 26px;
+    }
+    .structure-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .structure-step {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 20px;
+    }
+    .step-num {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--terracotta);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .step-head {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .step-text {
+      font-size: 13.5px;
+      color: var(--fg-muted);
+      line-height: 1.5;
+    }
+
+    /* SECTIONS */
+    .content-section {
+      padding: 68px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-eyebrow {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .section-heading {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--fg-muted);
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+
+    /* APARTMENTS */
+    .apartment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .apartment-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .apt-badge {
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+    .apt-name {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+    .apt-size {
+      font-size: 13.5px;
+      color: var(--fg-subtle);
+      margin-bottom: 18px;
+    }
+    .apt-price {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .apt-price span {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--fg-muted);
+    }
+    .apt-details {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--fg-muted);
+      line-height: 1.55;
+    }
+
+    .overhead-box {
+      background: var(--sand);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .overhead-col h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--fg);
+    }
+    .overhead-col p {
+      font-size: 13.5px;
+      color: var(--fg-muted);
+      line-height: 1.55;
+    }
+    .overhead-price {
+      font-weight: 700;
+      color: var(--fg);
+    }
+
+    /* CARE PACKAGES */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+    .pkg-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .pkg-card.highlight {
+      border: 2px solid var(--terracotta);
+      background: #FFFDFC;
+    }
+    .pkg-tier {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 8px;
+    }
+    .pkg-title {
+      font-family: var(--font-serif);
+      font-size: 21px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .pkg-target {
+      font-size: 13px;
+      color: var(--fg-muted);
+      margin-bottom: 18px;
+      min-height: 42px;
+    }
+    .pkg-cost {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pkg-cost span {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--fg-muted);
+    }
+    .pkg-capacity {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 22px;
+    }
+    .pkg-features {
+      list-style: none;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--fg-muted);
+    }
+    .pkg-features li {
+      position: relative;
+      padding-left: 18px;
+      line-height: 1.45;
+    }
+    .pkg-features li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-size: 18px;
+      line-height: 14px;
+    }
+
+    .policy-note {
+      background: var(--card-bg);
+      border-left: 3px solid var(--green);
+      padding: 18px 22px;
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+      color: var(--fg-muted);
+      line-height: 1.6;
+    }
+
+    /* PHARMACY */
+    .pharmacy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .pharma-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 22px;
+    }
+    .pharma-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--green-dark);
+    }
+    .pharma-card p {
+      font-size: 13.5px;
+      color: var(--fg-muted);
+      line-height: 1.55;
+    }
+
+    /* AMENITIES */
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .amenity-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px;
+    }
+    .amenity-card h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .amenity-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--fg-muted);
+    }
+    .amenity-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      line-height: 1.4;
+    }
+    .amenity-price {
+      font-weight: 700;
+      color: var(--fg);
+      font-size: 13px;
+    }
+
+    /* CTA FOOTER */
+    .cta-footer {
+      padding: 76px 0;
+      background: var(--green-dark);
+      color: #FFF;
+      text-align: center;
+    }
+    .cta-footer h2 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+    .cta-footer p {
+      font-size: 16.5px;
+      color: rgba(255, 255, 255, 0.82);
+      max-width: 620px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+    .cta-footer .btn-cta {
+      background: var(--terracotta);
+      color: #FFF;
+      padding: 13px 32px;
+      font-size: 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.15s ease;
+    }
+    .cta-footer .btn-cta:hover {
+      background: #A84424;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER BAR */
+    .site-footer {
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--fg-subtle);
+      text-align: center;
+    }
+
+    @media (max-width: 880px) {
+      .structure-grid, .apartment-grid, .packages-grid, .pharmacy-grid, .amenities-grid {
+        grid-template-columns: 1fr;
+      }
+      .overhead-box {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-title">Gesztenyeliget</span>
+        <span class="brand-sub">Apartman- és Lakócentrum</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Kezdőlap</a>
+        <a href="#apartmanok" class="nav-link">Apartmanbérlet</a>
+        <a href="#gondoskodas" class="nav-link">Csomagok és asszisztencia</a>
+        <a href="#gyogyszereszi-gondozas" class="nav-link">Gyógyszerészi felügyelet</a>
+        <a href="index.html#kapcsolat" class="btn btn-primary">Bejárás kérése</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="container">
+      <p class="hero-label">Szolgáltatott lakhatási modell · Díjjegyzék 2026</p>
+      <h1 class="hero-title">Átlátható struktúra, kiszámítható havidíjak.</h1>
+      <p class="hero-lead">
+        A prémium ingatlanüzemeltetés és a személyre szabott gondoskodás hibrid modellje: lakóink önálló bérleti jogviszonyban, saját kulcsú apartmanban élnek, a szükséges segítség és szakmai háttér pedig diszkréten, a lakó privát otthonában áll rendelkezésre.
+      </p>
+
+      <!-- STRUCTURE BANNER -->
+      <div class="structure-banner">
+        <h2 class="structure-title">Hogyan épül fel a havi költség?</h2>
+        <p class="structure-desc">A Gesztenyeliget modelljében a lakhatási díj és az életviteli asszisztencia csomag egymástól elkülönül, így csak azért fizet, amire valóban szüksége van.</p>
+        
+        <div class="structure-grid">
+          <div class="structure-step">
+            <div class="step-num">01</div>
+            <div class="step-head">Lakhatási bérlet & Rezsi</div>
+            <p class="step-text">Az apartman bérleti díja a választott méret (36–70 m²) szerint, kiegészítve a fix rezsiátalánnyal és a közös költséggel.</p>
+          </div>
+          <div class="structure-step">
+            <div class="step-num">02</div>
+            <div class="step-head">Életviteli asszisztencia szintje</div>
+            <p class="step-text">A lakó aktuális egészségügyi és önellátási állapotához igazított 3 életviteli asszisztencia csomag egyike (preventívtől az emelt szintű asszisztenciáig).</p>
+          </div>
+          <div class="structure-step">
+            <div class="step-num">03</div>
+            <div class="step-head">Választható extrák</div>
+            <p class="step-text">Igény szerint kérhető kényelmi szolgáltatások: mélygarázs, mosás, takarítás vagy orvosi vizsgálati kíséret.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. APARTMANOK -->
+  <section class="content-section" id="apartmanok">
+    <div class="container">
+      <p class="section-eyebrow">1. Lépés · Lakhatási bázis</p>
+      <h2 class="section-heading">Önellátó lakó bérlete (2026)</h2>
+      <p class="section-desc">
+        Minden lakónk saját kulccsal rendelkező, akadálymentesített, önálló apartmanban él. A bérleti díj tartalmazza a ház alapszolgáltatásait (24 órás portaszolgálat, orvosi és asszisztensi készenlét).
+      </p>
+
+      <div class="apartment-grid">
+        <div class="apartment-card">
+          <div>
+            <span class="apt-badge">Kompakt & Akadálymentes</span>
+            <h3 class="apt-name">1 szobás apartman</h3>
+            <p class="apt-size">36 m² alapterület</p>
+            <div class="apt-price">150 000 Ft <span>/ hó</span></div>
+          </div>
+          <div class="apt-details">
+            Ideális önálló életvitelt folytató egyedülálló lakónak. Saját fürdőszobával, teakonyhával és biztonsági segélyhívóval felszerelve.
+          </div>
+        </div>
+
+        <div class="apartment-card">
+          <div>
+            <span class="apt-badge">Kényelmes térérzet</span>
+            <h3 class="apt-name">1,5 szobás apartman</h3>
+            <p class="apt-size">54 m² alapterület</p>
+            <div class="apt-price">190 000 Ft <span>/ hó</span></div>
+          </div>
+          <div class="apt-details">
+            Elkülönülő hálótér és nappali. Tágasabb privát szféra, kényelmes pihenőtérrel és bőséges tárolási lehetőséggel.
+          </div>
+        </div>
+
+        <div class="apartment-card">
+          <div>
+            <span class="apt-badge">Pároknak vagy tágas otthonnak</span>
+            <h3 class="apt-name">2 szobás apartman</h3>
+            <p class="apt-size">65–70 m² alapterület</p>
+            <div class="apt-price">200 000 Ft <span>/ hó</span></div>
+          </div>
+          <div class="apt-details">
+            Lakóterület házaspárok számára, vagy olyan lakóknak, akik megszokott bútoraikat és teljes életterüket magukkal hozzák.
+          </div>
+        </div>
+      </div>
+
+      <!-- REZSI & KÖZÖS KÖLTSÉG -->
+      <div class="overhead-box">
+        <div class="overhead-col">
+          <h4>Közös költség</h4>
+          <p>
+            Egyéni lakó esetén: <span class="overhead-price">17 000 Ft / hó / fő</span><br>
+            Házaspárok esetén: <span class="overhead-price">22 000 Ft / hó / 2 fő</span><br>
+            <small>Tartalmazza az épület és a közös helyiségek fenntartását, liftüzemeltetést, kertgondozást.</small>
+          </p>
+        </div>
+        <div class="overhead-col">
+          <h4>Kiszámítható rezsiátalány</h4>
+          <p>
+            Egyéni lakó esetén: <span class="overhead-price">25 000 Ft / hó / fő</span><br>
+            Házaspárok esetén: <span class="overhead-price">35 000 Ft / hó / 2 fő</span><br>
+            <small>Tartalmazza a fűtést, hideg- és melegvíz használatot, áramfogyasztást és a szemétszállítást.</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. életviteli asszisztencia csomagOK -->
+  <section class="content-section" id="gondoskodas">
+    <div class="container">
+      <p class="section-eyebrow">2. Lépés · Személyre szabott asszisztencia</p>
+      <h2 class="section-heading">Személyes életmód-támogatási és jólléti szintek</h2>
+      <p class="section-desc">
+        A lakhatási bázison felül választható csomagjaink garantálják, hogy a lakó pontosan annyi támogatást kapjon a privát otthonában, amennyit az állapota és komfortigénye megkíván.
+      </p>
+
+      <div class="packages-grid">
+        <!-- 1. CSOMAG -->
+        <div class="pkg-card">
+          <p class="pkg-tier">1. Szint · Preventív</p>
+          <h3 class="pkg-title">Alapszintű Biztonsági és Komfort Csomag</h3>
+          <p class="pkg-target">Önellátó lakóknak, akik alapvetően önállóak, de igénylik a háttérben meghúzódó biztonságot és kényelmet.</p>
+          <div class="pkg-cost">190 000 Ft <span>/ hó</span></div>
+          <p class="pkg-capacity">Napi legfeljebb 60 perc támogatás</p>
+          <ul class="pkg-features">
+            <li><strong>24 órás segélyhívó rendszer:</strong> azonnali diszpécserszolgálat, műszaki és egészségügyi segítség vészhelyzetben.</li>
+            <li><strong>Rendszeres jólléti ellenőrzés:</strong> napi egyszeri diszkrét kapcsolatfelvétel személyesen vagy belső telefonon.</li>
+            <li><strong>Alapfokú gyógyszermenedzsment:</strong> heti/havi adagolók szakmai előkészítése és készletkövetés.</li>
+            <li><strong>Vitális paraméterek ellenőrzése:</strong> heti egyszeri vérnyomás-, pulzus- és vércukormérés dokumentálással.</li>
+          </ul>
+        </div>
+
+        <!-- 2. CSOMAG -->
+        <div class="pkg-card highlight">
+          <p class="pkg-tier">2. Szint · Asszisztált életvitel</p>
+          <h3 class="pkg-title">Moderált Támogató Csomag</h3>
+          <p class="pkg-target">Azoknak, akik a napi rutinban enyhe vagy időszakos segítségre szorulnak (pl. műtét utáni lábadozás, csökkent mozgásképesség).</p>
+          <div class="pkg-cost">330 000 Ft <span>/ hó</span></div>
+          <p class="pkg-capacity">Napi legfeljebb 120 perc támogatás</p>
+          <ul class="pkg-features">
+            <li><strong>Személyi higiénia támogatása:</strong> segítség a fürdésben, öltözködésben vagy személyes higiéniában igény szerinti rendszerességgel.</li>
+            <li><strong>Aktív gyógyszerbeadás-felügyelet:</strong> napi emlékeztetés és a bevételezés ellenőrzése szakképzett személyzet által.</li>
+            <li><strong>Jólléti szakasszisztensi alapfeladatok:</strong> gyakoribb paraméter-kontroll, katéter- vagy sztómaborítás felügyelete, kötéscsere.</li>
+            <li><strong>Mobilizáció támogatása:</strong> kíséret a házon belüli sétákhoz, klubszobába vagy programokra.</li>
+          </ul>
+        </div>
+
+        <!-- 3. CSOMAG -->
+        <div class="pkg-card">
+          <p class="pkg-tier">3. Szint · Krónikus / Intenzív</p>
+          <h3 class="pkg-title">Emelt Szintű Személyes Életviteli és Jólléti Csomag</h3>
+          <p class="pkg-target">Olyan lakóknak, akik komplex egészségügyi állapotuk miatt állandó szakképzett jelenlétet és kiterjedt személyes asszisztenciát igényelnek.</p>
+          <div class="pkg-cost">540 000 Ft <span>/ hó</span></div>
+          <p class="pkg-capacity">24 órás, folyamatos személyes életviteli asszisztencia</p>
+          <ul class="pkg-features">
+            <li><strong>Intenzív életmód-támogatás és szakasszisztencia:</strong> sebkezelés, felfekvés megelőzése/ellátása, injekció, infúziós terápia orvosi elrendelésre.</li>
+            <li><strong>Teljes körű személyes asszisztencia:</strong> segítség a higiéniában, inkontinenciakezelés, fekvő lakók rendszeres forgatása.</li>
+            <li><strong>Táplálkozási asszisztencia:</strong> étkezés támogatása, folyadékpótlás felügyelete, szondás táplálás kezelése.</li>
+            <li><strong>Rehabilitációs koordináció:</strong> együttműködés gyógytornászokkal, napi gyakorlatok felügyelete.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="policy-note">
+        <strong>Szolgáltatási csomagváltási szabályzat:</strong> Mivel intézményünk folyamatos asszisztensi jelenlétet és szakszemélyzeti kapacitást tart fenn, a magasabb szintű csomagból nem lehetséges az alacsonyabb szintű irányába visszalépni. Amennyiben a lakó egészségi állapota indokolja, az alacsonyabb csomagból bármikor rugalmasan lehetőség van a magasabb szintű csomagba átlépni.
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GYÓGYSZERÉSZI FELÜGYELET -->
+  <section class="content-section" id="gyogyszereszi-gondozas">
+    <div class="container">
+      <p class="section-eyebrow">Minőségi garancia · Szakmai pillér</p>
+      <h2 class="section-heading">Személyre szabott gyógyszerészi felügyelet</h2>
+      <p class="section-desc">
+        A lakók gyógyszerelésének biztonságát független együttműködő gyógyszerész, a kezelőorvos és a rezidens koordinátorok és asszisztensek közös, rendszeres felügyelete garantálja.
+      </p>
+
+      <div class="pharmacy-grid">
+        <div class="pharma-card">
+          <h4>Gyógyszerelés teljes áttekintése</h4>
+          <p>Beköltözéskor, kórházi zárójelentés után és szükség szerint a teljes gyógyszerlista egyeztetése; a párhuzamosan szedett szerek, veszélyes kölcsönhatások és kockázatok azonnali felmérése.</p>
+        </div>
+
+        <div class="pharma-card">
+          <h4>Közérthető gyógyszerelési terv</h4>
+          <p>Naprakész, világos táblázat a készítményekről, a pontos adagolási időpontokról, étkezési kapcsolatokról és az alkalmazási óvintézkedésekről a lakó és családja számára.</p>
+        </div>
+
+        <div class="pharma-card">
+          <h4>Vény nélkül kapható szerek szűrése</h4>
+          <p>A lakó által választott étrend-kiegészítők, vitaminok és gyógynövénykészítmények összeférhetőségi vizsgálata az orvos által felírt alapgyógyszerekkel a nemkívánatos reakciók megelőzésére.</p>
+        </div>
+
+        <div class="pharma-card">
+          <h4>Labor és kontroll koordináció</h4>
+          <p>Szükség esetén helyszíni vérvétel szervezése és a laboreredmények nyomon követése, közvetlen dokumentált konzultáció a kezelőorvossal és az asszisztens munkatársakkal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. HÁZ SZOLGÁLTATÁSAI ÉS EXTRÁK -->
+  <section class="content-section" id="szolgaltatasok">
+    <div class="container">
+      <p class="section-eyebrow">Infrastruktúra · Életminőség</p>
+      <h2 class="section-heading">A Ház alapszolgáltatásai és választható extrák</h2>
+      <p class="section-desc">
+        A Gesztenyeliget épületegyüttese nemcsak lakhatást, hanem élhető, nyugodt közösségi környezetet biztosít.
+      </p>
+
+      <div class="amenities-grid">
+        <div class="amenity-card">
+          <h3>A bérletben díjmentesen biztosított</h3>
+          <ul class="amenity-list">
+            <li>24 órás recepciós és portaszolgálat <span class="amenity-price">Tartalmazza</span></li>
+            <li>24 órás szakképzett asszisztensi jelenlét és készenlét <span class="amenity-price">Tartalmazza</span></li>
+            <li>Háziorvosi rendelés helyben (heti 1 alkalommal) <span class="amenity-price">Tartalmazza</span></li>
+            <li>Könyvtár, olvasó- és klubszoba használata <span class="amenity-price">Tartalmazza</span></li>
+            <li>Ökumenikus kápolna <span class="amenity-price">Tartalmazza</span></li>
+            <li>Pihenőtér, tornaszoba és közösségi TV-sarok <span class="amenity-price">Tartalmazza</span></li>
+            <li>Szabadtéri ligetes kert, grill és bográcsozó <span class="amenity-price">Tartalmazza</span></li>
+          </ul>
+        </div>
+
+        <div class="amenity-card">
+          <h3>Egyénileg választható kiegészítő szolgáltatások</h3>
+          <ul class="amenity-list">
+            <li>Zárt mélygarázsos parkoló saját hellyel <span class="amenity-price">30 000 Ft / hó</span></li>
+            <li>Külső udvari védett parkolóhely <span class="amenity-price">15 000 Ft / hó</span></li>
+            <li>Rendszeres lakástakarítás és mosási szolgáltatás <span class="amenity-price">Egyedi igény szerint</span></li>
+            <li>Földszinti pékség és kávézó kínálata <span class="amenity-price">Fogyasztás szerint</span></li>
+            <li>Kíséret külső szakrendelésre, kórházi kontrollra <span class="amenity-price">Eseti megállapodás</span></li>
+            <li>Speciális komfortágy bérlése (egyszeri hozzájárulás) <span class="amenity-price">200–300 000 Ft</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  
+  <!-- GYIK / MŰKÖDÉSI ÉS DÍJFIZETÉSI TRANSZPARENCIA -->
+  <section class="content-section" id="faq-transzparencia" style="background: #FFFFFF; border-top: 1px solid var(--border); padding-top: 60px; padding-bottom: 60px;">
+    <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+      <span class="eyebrow" style="color: var(--accent-2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 13px;">Működési és díjfizetési transzparencia</span>
+      <h2 class="section-heading" style="margin-top: 8px; margin-bottom: 32px; font-family: var(--font-display); font-size: 32px;">Gyakori kérdések a díjakról és a garanciákról</h2>
+      
+      <div style="display: grid; gap: 28px;">
+        <div style="background: var(--bg); padding: 30px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h3 style="font-family: var(--font-display); font-size: 20px; color: var(--fg); margin-bottom: 12px;">Miért nem jár vissza kiköltözéskor az egyszeri 3 000 000 Ft-os lakhatási hozzájárulás?</h3>
+          <p style="color: var(--fg-2); line-height: 1.65; font-size: 15.5px;">
+            A Gesztenyeliget nem állami intézmény és nem normatívából működik, hanem transzparens piaci modellben biztosítja a prémium fenntartást. Amikor egy leendő Lakóval megállapodunk, a beköltözésig eltelt 4–6 hétben az apartmant kizárólagosan fenntartjuk (nem adjuk ki másnak, ami ~500.000 Ft bevételkiesés). Az ingatlant teljes körűen kifestjük, fertőtlenítjük, elvégezzük a szükséges egyedi állagmegóvó munkákat (~500–600.000 Ft), valamint erre a bevételt még nem termelő időszakra is biztosítjuk a dedikált személyzetet és munkabért (~500.000 Ft). Egy-egy apartman felkészítése és beköltözése mintegy 1,5 millió forintba kerül, és pontosan ugyanez a költség keletkezik a Lakó távozásakor a teljes körű helyreállítás és átadás során. A 2 × 1,5 millió Ft összege nem a Ház nyeresége, hanem a magas lakhatási minőség, az állandó személyzet és a stabil, nem „átjáróház” jellegű lakóközösség garanciája.
+          </p>
+        </div>
+
+        <div style="background: var(--bg); padding: 30px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h3 style="font-family: var(--font-display); font-size: 20px; color: var(--fg); margin-bottom: 12px;">Miért nem lehetséges a választott életviteli csomagot alacsonyabb szintre módosítani?</h3>
+          <p style="color: var(--fg-2); line-height: 1.65; font-size: 15.5px;">
+            Amikor egy Lakó magasabb szintű életmód-támogatási és asszisztencia csomagot igényel, a Gesztenyeliget vezetése ehhez dedikált munkavállalói kapacitást vesz fel és tart állományban állandó munkabérrel és járulékokkal. Intézményünk elkötelezett a munkatársak biztonsága és megbecsülése mellett: nem bocsátunk el dolgozókat egyik napról a másikra csak azért, mert egy igény papíron lecsökkent. Emellett a Ház folyamatosan készenlétben áll a váratlan helyzetekre vagy állapotváltozásokra, így a személyzeti kapacitások fixek, a csomagok lefelé történő váltására nincs lehetőség.
+          </p>
+        </div>
+
+        <div style="background: var(--bg); padding: 30px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <h3 style="font-family: var(--font-display); font-size: 20px; color: var(--fg); margin-bottom: 12px;">Milyen időtartamra szól a bérlet és milyen garanciát nyújt a Lakócentrum?</h3>
+          <p style="color: var(--fg-2); line-height: 1.65; font-size: 15.5px;">
+            A Gesztenyeligetbe beköltöző Bérlőkkel élethosszig tartó, biztonságos otthonteremtésre készülünk. Árazásunkat és szolgáltatásainkat ennek megfelelően terveztük meg: a szerződéses feltételek betartása mellett idő előtti felmondás vagy kilakoltatás kizárt, a lakóknak kiszámítható, békés és védett környezetet nyújtunk.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-footer">
+    <div class="container">
+      <h2>Személyre szabott kalkulációért keresse munkatársunkat</h2>
+      <p>Minden élethelyzet egyedi. Segítünk kiválasztani a megfelelő apartmanméretet és támogatási szintet egy személyes bejárás keretében.</p>
+      <a href="index.html#kapcsolat" class="btn-cta">Személyes bejárás kérése</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Gesztenyeliget Apartman- és Lakócentrum · PAX ET VITA Üzemeltető Kft.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
