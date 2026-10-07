@@ -876,6 +876,85 @@ p { margin: 0; }
   font-size: 14px;
 }
 
+/* Kiemelt infópanel: funkcionális betegellátó ágy */
+.bed-panel {
+  background: var(--accent-2-soft);
+  border: 1px solid color-mix(in oklab, var(--accent-2), transparent 75%);
+  border-left: 4px solid var(--accent-2);
+  border-radius: var(--radius-md);
+  padding: clamp(24px, 3.5vw, 40px);
+}
+
+.bed-panel-eyebrow {
+  font: 600 11px/1 var(--font-body);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 10px;
+}
+
+.bed-panel h4 {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.2vw, 25px);
+  color: var(--fg);
+  margin-bottom: 12px;
+}
+
+.bed-panel-desc {
+  font-size: 15px;
+  color: var(--fg-2);
+  line-height: 1.65;
+  max-width: 760px;
+  margin-bottom: 22px;
+}
+
+.bed-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.bed-features li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--fg-2);
+  line-height: 1.55;
+}
+
+.bed-features strong {
+  display: block;
+  font-size: 14.5px;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+
+.bed-panel-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bed-panel-foot p {
+  font-size: 14px;
+  color: var(--fg-2);
+  max-width: 560px;
+}
+
+.bed-panel-foot a {
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .bed-panel-foot { flex-direction: column; align-items: flex-start; }
+}
+
 /* ============================================================
    LETÖLTHETŐ DOKUMENTUMOK
    ============================================================ */
@@ -1489,6 +1568,21 @@ p { margin: 0; }
             </ul>
           </div>
         </div>
+
+        <div class="bed-panel" data-od-id="betegellato-agy-panel">
+          <div class="bed-panel-eyebrow">Választható extra</div>
+          <h4>Funkcionális betegellátó ágy (FY-E03E)</h4>
+          <p class="bed-panel-desc">Lakóink kérésre prémium ápolási ágyat is választhatnak a saját apartmanba matraccal és éjjeliszekrénnyel. A megszokott bútorzat megmaradhat; ez a típus akkor jön szóba, ha 3 motoros állítható fekvésre, könnyebb gondozásra vagy emelhető magasságra van szükség.</p>
+          <ul class="bed-features">
+            <li><strong>Állítható fekvés</strong>Háttámla (0–75°), lábrész (0–35°), vádli-szög, 420–700 mm magasságemelés kézi távirányítóval.</li>
+            <li><strong>Biztonság &amp; stabilitás</strong>200 kg teherbírás, HDPE biztonsági oldalkorlát, központi fék, infúziós tartók.</li>
+            <li><strong>Matrac &amp; éjjeliszekrény</strong>Vízálló huzatú prémium matrac és tartozék acélvázas éjjeliszekrény.</li>
+          </ul>
+          <div class="bed-panel-foot">
+            <p>A recepción vagy az alábbi személyes bejárási űrlapon jelezhető; a szoba felmérése után munkatársaink beüzemelik és betanítják.</p>
+            <a href="assets/betegellato-agy-kiajanlo.pdf" download class="btn btn-primary">Kiajánló letöltése (PDF)</a>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -1618,6 +1712,18 @@ p { margin: 0; }
               <strong>Kommunikációs csomag</strong>
               <span class="doc-meta">PDF · Hivatalos anyag</span>
             </span>
+              <span class="doc-dl">Letöltés
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path></svg>
+            </span>
+          </a>
+          <a class="doc-card" href="assets/betegellato-agy-kiajanlo.pdf" download data-od-id="doc-betegellato-agy-kiajanlo">
+            <span class="doc-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M12 18v-6"></path><path d="m9 15 3 3 3-3"></path></svg>
+            </span>
+            <span class="doc-info">
+              <strong>Betegellátó ágy kiajánló</strong>
+              <span class="doc-meta">PDF · Választható extra</span>
+            </span>
             <span class="doc-dl">Letöltés
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path><path d="M12 15V3"></path></svg>
             </span>
@@ -1668,6 +1774,10 @@ p { margin: 0; }
             <div class="field">
               <label for="f-msg">Megjegyzés vagy kérdés</label>
               <textarea id="f-msg" name="message" rows="3" placeholder="Miben segíthetünk?"></textarea>
+            </div>
+            <div class="consent" style="margin-top: 0;">
+              <input id="f-bed-option" name="bed_option" type="checkbox">
+              <label for="f-bed-option">Érdekel a funkcionális betegellátó ágy opció is</label>
             </div>
             <div class="consent">
               <input id="f-consent" name="consent" type="checkbox" required="">
